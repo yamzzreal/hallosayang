@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pilih Warna ❤️</title>
+
+<style>
+body{
+    font-family:Arial,sans-serif;
+    background:#fff0f5;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    margin:0;
+}
+
+.box{
+    background:white;
+    padding:30px;
+    border-radius:20px;
+    text-align:center;
+    width:350px;
+}
+
+.warna{
+    display:flex;
+    justify-content:center;
+    gap:15px;
+    margin-top:20px;
+}
+
+.pilihan{
+    width:60px;
+    height:60px;
+    border-radius:50%;
+    cursor:pointer;
+    border:3px solid white;
+    box-shadow:0 0 10px rgba(0,0,0,.2);
+}
+
+.merah{background:red;}
+.biru{background:blue;}
+.hijau{background:green;}
+.putih{background:white;}
+.hitam{background:black;}
+</style>
+</head>
+<body>
+
+<div class="box">
+    <h2 id="judul"></h2>
+
+    <p>Pilih warna yang kamu suka ❤️</p>
+
+    <div class="warna">
+        <div class="pilihan merah" onclick="pilih('Merah')"></div>
+        <div class="pilihan biru" onclick="pilih('Biru')"></div>
+        <div class="pilihan white" onclick="pilih('White')"></div>
+        <div class="pilihan hitam" onclick="pilih('Hitam')"></div>
+    </div>
+</div>
+
+<script>
+let nama = localStorage.getItem('namaPacar');
+document.getElementById('judul').innerHTML =
+"Hai "+"Sayang "+ nama + " 🥰";
+
+function pilih(warna){
+
+    localStorage.setItem("warnaTema", warna);
+
+    window.location.href = "jadian.html";
+}
+</script>
+
+</body>
+</html>

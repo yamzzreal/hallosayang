@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tanggal Jadian ❤️</title>
+
+<style>
+body{
+    font-family:Arial,sans-serif;
+    background:linear-gradient(135deg,#ffd1dc,#ffe4e1);
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    margin:0;
+}
+
+.box{
+    background:white;
+    padding:30px;
+    border-radius:20px;
+    text-align:center;
+    width:350px;
+    box-shadow:0 5px 20px rgba(0,0,0,.15);
+}
+
+h2{
+    color:#ff4d6d;
+    margin-bottom:10px;
+}
+
+input{
+    width:90%;
+    padding:12px;
+    margin:15px 0;
+    border-radius:10px;
+    border:1px solid #ddd;
+}
+
+button{
+    background:#ff4d6d;
+    color:white;
+    border:none;
+    padding:12px 25px;
+    border-radius:10px;
+    cursor:pointer;
+}
+
+.popup{
+    display:none;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,.5);
+    justify-content:center;
+    align-items:center;
+    z-index:999;
+}
+
+.popup-box{
+    background:white;
+    width:85%;
+    max-width:350px;
+    padding:25px;
+    border-radius:20px;
+    text-align:center;
+    animation:pop .3s;
+}
+
+.btn-group{
+    margin-top:20px;
+    position:relative;
+    height:60px;
+}
+
+#btnIya{
+    padding:10px 20px;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+}
+
+#btnNgga{
+    position:absolute;
+    padding:10px 20px;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.btn-group button{
+    padding:10px 20px;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+}
+
+@keyframes pop{
+    from{
+        transform:scale(.8);
+        opacity:0;
+    }
+    to{
+        transform:scale(1);
+        opacity:1;
+    }
+}
+
+.heart-success{
+    position:fixed;
+    top:100vh;
+    font-size:30px;
+    z-index:1000;
+    animation:naik 4s linear forwards;
+    pointer-events:none;
+}
+
+@keyframes naik{
+    0%{
+        transform:translateY(0);
+        opacity:1;
+    }
+
+    100%{
+        transform:translateY(-120vh);
+        opacity:0;
+    }
+}
+</style>
+</head>
+<body>
+
+<div class="box">
+    <h2 id="nama"></h2>
+
+    <p>Masukkan tanggal jadian kita ❤️</p>
+
+    <input type="date" id="tanggal">
+
+    <br>
+
+    <button onclick="lanjut()">Lanjut</button>
+</div>
+
+<script>
+document.getElementById("nama").innerHTML =
+"Hai " + localStorage.getItem("namaPacar") + " 🥰";
+
+function lanjut(){
+
+    let tanggal = document.getElementById("tanggal").value;
+    let tanggalBenar = "2026-05-11";
+
+    if(tanggal === ""){
+        return;
+    }
+
+    let popup = document.getElementById("popup");
+    let title = document.getElementById("popupTitle");
+    let text = document.getElementById("popupText");
+    let btnIya = document.getElementById("btnIya");
+    let btnNgga = document.getElementById("btnNgga");
+
+    popup.style.display = "flex";
+
+    if(tanggal !== tanggalBenar){
+
+        btnNgga.style.display = "inline-block";
+
+        title.innerHTML = "🥺";
+        text.innerHTML =
+        "Ihh salah tanggalnya, kamu lupa ya? 😭❤️";
+
+        btnIya.innerHTML = "Iya 😔";
+        btnNgga.innerHTML = "Ngga 😝";
+
+        btnIya.onclick = function(){
+            popup.style.display = "none";
+        };
+
+    }else{
+
+        title.innerHTML = "🥰❤️";
+
+        text.innerHTML =
+        "Bagus, tanggalnya benar berarti kamu inget ❤️<br><br>Sekarang klik lanjut ya sayang.";
+
+        btnIya.innerHTML = "Lanjut ❤️";
+        btnNgga.style.display = "none";
+
+        // animasi hati
+        buatHati();
+
+        btnIya.onclick = function(){
+            window.location.href = "halaman4.html";
+        };
+    }
+}
+
+function buatHati(){
+
+    for(let i=0;i<30;i++){
+
+        let heart = document.createElement("div");
+
+        heart.innerHTML = "🤍";
+
+        if(localStorage.getItem("warnaTema") === "Merah")
+            heart.innerHTML = "❤️";
+
+        if(localStorage.getItem("warnaTema") === "Biru")
+            heart.innerHTML = "💙";
+
+        if(localStorage.getItem("warnaTema") === "Hijau")
+            heart.innerHTML = "💚";
+
+        if(localStorage.getItem("warnaTema") === "Hitam")
+            heart.innerHTML = "🖤";
+
+        heart.classList.add("heart-success");
+
+        heart.style.left = Math.random()*100 + "vw";
+        heart.style.animationDelay = (Math.random()*2) + "s";
+
+        document.body.appendChild(heart);
+
+        setTimeout(()=>{
+            heart.remove();
+        },4000);
+    }
+}
+
+window.onload = function(){
+
+    const btnNgga = document.getElementById("btnNgga");
+
+    btnNgga.addEventListener("mouseover", kabur);
+    btnNgga.addEventListener("touchstart", kabur);
+
+};
+
+function kabur(){
+
+    const popupBox = document.querySelector(".popup-box");
+
+    const maxX = popupBox.offsetWidth - 120;
+    const maxY = popupBox.offsetHeight - 80;
+
+    const x = Math.random() * maxX;
+    const y = Math.random() * maxY;
+
+    document.getElementById("btnNgga").style.left = x + "px";
+    document.getElementById("btnNgga").style.top = y + "px";
+}
+</script>
+
+<script>
+const warna = localStorage.getItem("warnaTema");
+const tombol = document.querySelectorAll("button");
+
+let warnaBtn = "#ff4d6d";
+
+if(warna === "Biru") warnaBtn = "#2196f3";
+if(warna === "Hijau") warnaBtn = "#4caf50";
+if(warna === "Ungu") warnaBtn = "#9c27b0";
+if(warna === "Hitam") warnaBtn = "#000000";
+
+tombol.forEach(btn=>{
+    btn.style.background = warnaBtn;
+});
+
+if(warna === "Merah"){
+    document.body.style.background =
+    "linear-gradient(135deg,#ff758c,#ff7eb3)";
+}
+
+if(warna === "Biru"){
+    document.body.style.background =
+    "linear-gradient(135deg,#4facfe,#00f2fe)";
+}
+
+if(warna === "Hijau"){
+    document.body.style.background =
+    "linear-gradient(135deg,#43e97b,#38f9d7)";
+}
+
+if(warna === "White"){
+    document.body.style.background =
+    "linear-gradient(#dbdbdb,#ffffff,#676767)";
+}
+
+if(warna === "Hitam"){
+    document.body.style.background =
+    "linear-gradient(135deg,#dbdbdb,#4c494b)";
+}
+</script>
+
+<div id="popup" class="popup">
+    <div class="popup-box">
+        <h2 id="popupTitle"></h2>
+        <p id="popupText"></p>
+
+<div class="btn-group">
+    <button id="btnIya">Iya ❤️</button>
+    <button id="btnNgga">Ngga 😝</button>
+</div>
+    </div>
+</div>
+</body>
+</html>
